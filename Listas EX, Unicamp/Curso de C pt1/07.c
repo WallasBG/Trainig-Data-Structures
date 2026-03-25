@@ -17,12 +17,7 @@ vetorEn intersecao(int *v, int n, int *w, int m){
     int *ans = (int *)malloc((n + m) * sizeof(int)), idx = 0;
 
     for(int i=0; i<n; i++){
-        for(int k=0; k<m; k++){
-            if(v[i]==w[k]){
-                ans[idx++] = v[i];
-                break;
-            }
-        }
+        if(numINvetor(v[i], w, m)) ans[idx++] = v[i];
     }
     vetorEn result; 
     result.n = idx; result.vetor = ans;
