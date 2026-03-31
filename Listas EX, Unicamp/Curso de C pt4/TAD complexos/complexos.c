@@ -1,4 +1,5 @@
 //implementação
+#include <stdio.h>
 #include "complexos.h"
 #include <math.h>
 
@@ -48,6 +49,7 @@ complexo complexo_multiplicacao(complexo a, complexo b){
 complexo complexo_conjugado(complexo a){
     complexo conjugado;
     conjugado.img = a.img*-1;
+    conjugado.real = a.real;
 
     return conjugado;
 }
