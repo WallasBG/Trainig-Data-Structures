@@ -8,7 +8,7 @@ typedef struct{
     int colunas;
 }matriz;
 
-matriz matriz_nova(float[][MAX],int linha, int coluna);//Cria uma nova matriz, com dados do teclado
+matriz matriz_nova(float elementos[][MAX],int linha, int coluna);//Cria uma nova matriz
 void imprime_matriz(matriz m);//Imprime a matriz m
 matriz matriz_adiciona(matriz a, matriz b);// retorna a matriz a+b
 matriz matriz_multiplica(matriz a, matriz b);// retorna a matriz a*b
