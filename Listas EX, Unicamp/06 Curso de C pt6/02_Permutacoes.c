@@ -110,6 +110,3 @@ int main(){
 
 	return 0;
 }
-
-//agora tem q fazer uma funcao que le a matriz pertumacao e identifique quias linhas tem q trocar, sem fazer as contas de soma e produto.
-//sera uma operacao mais rapida
