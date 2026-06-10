@@ -103,18 +103,6 @@ p_no concatena(p_no l1, p_no l2){//O(1)
     return l2;
 }
 
-p_no concat_v2(p_no lista1, p_no lista2){
-    p_no p = lista1;
-    while (p->prox != lista1)
-    p = p->prox;
-    p->prox = lista2;
-    p = lista2;
-    while (p->prox != lista2)
-    p = p->prox;
-    p->prox = lista1;
-    return lista1;
-}
-
 int main(){
     p_no l1 = cria_lista_circular(), l2 = cria_lista_circular();
     l1 = add_circular(l1,3); l1 = add_circular(l1,2); l1 = add_circular(l1,1);
@@ -123,7 +111,7 @@ int main(){
     l2 = add_circular(l2,7); l2 = add_circular(l2,6); l2 = add_circular(l2,5);
     imprimir_circular(l2);
 
-    l1 = concat_v2(l1,l2->prox);
+    l1 = concatena(l1,l2);
     imprimir_circular(l1);
 
     return 0;
