@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct no no;
 
@@ -59,14 +60,52 @@ void in_ordem(no *raiz){
 	}
 }
 
+typedef struct fila{
+    no **v;
+    int ini, fim, capacidade;
+}fila;
+
+fila *cria_fila(int capacidade){
+    fila *f = malloc(sizeof(fila));
+    f->capacidade = capacidade;
+
+    f->v = malloc(f->capacidade * sizeof(no*));
+    f->ini = f->fim = 0;
+    return f;
+}
+
+void enfileirar(no *raiz, fila *f){
+    f->v[f->fim++] = raiz;
+}
+
+no *desenfileira(fila *f){
+    return f->v[f->ini++];
+}
+
+void percorrendo_largura(no *raiz){
+    fila *f = cria_fila(100);
+    no *r = raiz;
+    
+    enfileirar(r,f);
+    while(f->ini < f->fim){
+		r = desenfileira(f);
+        if(r->esq) enfileirar(r->esq,f);
+        if(r->dir) enfileirar(r->dir,f);
+
+		printf("%c ", r->dado);
+    }
+	printf("\n");
+}
+
 
 
 int main(){
-	char exp[] = "3-1/2*3+2";
-	no *raiz = expressao_to_arvore(exp, 0, 8);
+	char exp[] = "1-2*3+4";
+	no *raiz = expressao_to_arvore(exp, 0, strlen(exp)-1);
 	in_ordem(raiz); printf("\n");
 	pos_ordem(raiz); printf("\n");
 	pre_ordem(raiz); printf("\n");
+	percorrendo_largura(raiz);
 
 	return 0;
 }

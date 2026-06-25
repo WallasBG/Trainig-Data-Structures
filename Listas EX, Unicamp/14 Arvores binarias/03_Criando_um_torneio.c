@@ -8,10 +8,6 @@ typedef struct no{
 	no *esq, *dir;	
 }no;
 
-typedef struct fila{
-	no *ini, *fim;	
-}fila;
-
 no *cria_no(int valor){
 	no *novo_no = malloc(sizeof(no));
 	novo_no->dado = valor;
@@ -20,30 +16,7 @@ no *cria_no(int valor){
 	return novo_no;
 }
 
-fila *cria_fila(){
-	fila *f = malloc(fila);
-	l->ini = NULL;
-	l->fim = NULL;
-	return l;
-}
 
-void emfileira(fila *f, int valor){
-	no *novo_no = cria_no(valor);
-
-	if(!fila->fim){
-		f->ini = novo_no;
-	}
-
-
-	else{
-		novo_no->dir = f->fim->dir;
-		f->fim->dir = novo_no;
-	} 
-	
-	f->fim = novo_no;
-
-
-}
 
 no *cria_arvore(int valor, no *esq, no *dir){
 	no *novo_no = cria_no(valor);
@@ -61,11 +34,42 @@ no *torneio(int *vetor, int ini, int fim){
 	return esq->dado > dir->dado ? cria_arvore(esq->dado, esq, dir) : cria_arvore(dir->dado, esq, dir);
 }
 
-void profundidade_lateral(no *raiz){
-	fila *f = cria_fila();
-	while(raiz){
-		emfileira(f,);
-	}
+typedef struct fila{
+    no **v;
+    int ini, fim, capacidade;
+}fila;
+
+fila *cria_fila(int capacidade){
+    fila *f = malloc(sizeof(fila));
+    f->capacidade = capacidade;
+
+    f->v = malloc(f->capacidade * sizeof(no*));
+    f->ini = f->fim = 0;
+    return f;
+}
+
+void enfileirar(no *raiz, fila *f){
+    f->v[f->fim++] = raiz;
+}
+
+no *desenfileira(fila *f){
+    return f->v[f->ini++];
+}
+
+void percorrendo_largura(no *raiz){
+    fila *f = cria_fila(100);
+    no *r = raiz;
+    
+    enfileirar(r,f);
+    while(f->ini < f->fim){
+		r = desenfileira(f);
+
+        if(r->esq) enfileirar(r->esq,f);
+        if(r->dir) enfileirar(r->dir,f);
+        
+		printf("%d ", r->dado);
+    }
+	printf("\n");
 }
 
 int main(){
@@ -79,6 +83,7 @@ int main(){
 
 	// printf("%d\n", arvore->esq->esq->dado);
 	// printf("%d\n", arvore->esq->dir->dado);
+	percorrendo_largura(arvore);
 
 	
   return 0;
